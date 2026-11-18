@@ -51,7 +51,6 @@ class Calculo
             $valorMinimo = "1"
             retorna $valorMinimo; // 1
         */
-
     }
 
 
@@ -116,45 +115,43 @@ class Calculo
         $listaRepeticoes = []; // Inicializa o array lista;
         foreach ($values as $v) {
             $v = "$v"; // Transforma o valor do array para string para permitir valores flutuantes(float)!!
-            $listaRepeticoes["$v"] ++; //Cria o índice de lista a partir do valor do array inserido e adiciona 1; caso o índice ja exista será apenas adiciona mais um!!
+            $listaRepeticoes["$v"]++; //Cria o índice de lista a partir do valor do array inserido e adiciona 1; caso o índice ja exista será apenas adiciona mais um!!
         }
-        
+
         $max = max($listaRepeticoes); //Verifica o índice com maior valor dentro de lista, retorna o primeiro caso acha dois valores associativos com o mesmo "tamanho";
         $chaves = array_keys($listaRepeticoes); // Adquire as chaves de lista que corresponde aos valores do array inserido
 
         /*
             $moda é um array que é contruído a partir de array_filter que tem como parametro um array e uma função callback que irá molda-lo. 
         */
-        
+
         //filtragem é um função callback que será utilizado para separar elementos de acordo com o valor maximo; define a regra de filtragem
         $filtragem = function ($v) use ($listaRepeticoes, $max) {
             return ($listaRepeticoes[$v] == $max) ? $listaRepeticoes[$v] : 0; //Se true, então retorna $listaRepeticoes[$v], senão  retorna false
-        }; 
+        };
 
         //filtra os valores contido em chaves a partir da regra de filtragem
         $moda = array_filter($chaves, $filtragem);
-        
+
         return $moda;
 
         /*
          exemplo contas : [1.5, 2,1.5, 6, 2, 5.9];
-         
-             --loop--
-             $listaRepeticoes = [
+            --loop--
+            $listaRepeticoes = [
                 "1.5" => 2,
                 "2" => 2,
                 "6" => 1,
                 "5.9" => 1
                 ];
-                
             $max = 2; // $listaRepeticoes["1.5"];
             $chaves = ["1.5", "2", "6", "5.9"];
-    
+
             --definição de filtragem---
             $moda = [
             "0" => 1.5,
             "1" => 2];
-    
+
             retorna $moda; // ["0" => 1.5,"1" => 2]
          */
     }
